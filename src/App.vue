@@ -1,15 +1,16 @@
 <template>
   <div id="app">
-    <RestaurantCard/>
+    <home />
   </div>
 </template>
 
 <script>
-import RestaurantCard from './components/RestaurantCard.vue'
+import Home from './page/home.vue';
+
 export default {
   name: 'App',
   components: {
-    RestaurantCard
+      Home
   }
 }
 </script>
@@ -20,5 +21,6 @@ export default {
 
 #app {
   font-family: 'Roboto' , sans-serif;
+  padding: 20px;
 }
 </style>
