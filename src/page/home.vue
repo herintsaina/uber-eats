@@ -2,7 +2,19 @@
   <div class="home">
     <div class="header">
         <img src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats-v2/ee037401cb5d31b23cf780808ee4ec1f.svg" alt="">
-        <input v-model="user_search_restaurant" type="text" placeholder="De quoi avez vous envie ?">
+
+        <div class="wrapper--input">
+            <input v-model="user_search_restaurant" type="text" placeholder="De quoi avez vous envie ?">
+            <div class="search">
+                <div v-for="(resatusrant, i ) in search_restaurant" :key="i" class="contenair--restaurant--search">
+                    <div class="wrapper--img">
+                        <img :src="restaurant.name" alt="">
+                    </div>
+                    <h2>{{  restaurant.name  }}</h2>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="banner"></div>
     <!-- <h2 class="title">
@@ -60,14 +72,15 @@ export default {
         }
 
         // User searh restaurant
-        let user_search_restaurant = ref('')
+        let user_search_restaurant = ref('');
+        let search_restaurant = ref([]);
 
         watch(user_search_restaurant , new_value => {
             let regex = RegExp(new_value);
 
-            let test_array = all_restaurant.filter(restaurant => regex.test(restaurant.name));
+            let new_search_restaurant = all_restaurant.filter(restaurant => regex.test(restaurant.name));
 
-            console.log(test_array);
+            search_restaurant = new_search_restaurant;
         })
         //
 
@@ -76,6 +89,7 @@ export default {
         return {
             data_restaurant,
             user_search_restaurant,
+            search_restaurant,
         }
     }
 
@@ -95,14 +109,32 @@ export default {
                 width: 200px;
             }
 
-            input {
-                background: #f6f6f6;
-                border: none;
-                height: 60px;
-                width: 400px;
-                outline: none;
-                padding-left: 20px;
+            .wrapper--input {
+                position: relative;
+                input {
+                    background: #f6f6f6;
+                    border: none;
+                    height: 60px;
+                    width: 400px;
+                    outline: none;
+                    padding-left: 20px;
+                }
+
+                .search {
+                    position: absolute;
+                    top: 100%;
+                    width: 100%;
+                    height: 400px;
+                    background-color: #fff;
+                    border: 1px solid #666;
+
+                    .contenair--restaurant--search {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
             }
+
         }
 
         .banner {
