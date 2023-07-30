@@ -1,6 +1,6 @@
 <template>
   <div class="restaurant--card">
-    <div :style="changeBackground" class="restaurant--image">
+    <div  class="restaurant--image">
       <img :src="info_restaurant.image" alt="">
     </div>  
     <div class="restaurant--information">

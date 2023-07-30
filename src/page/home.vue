@@ -6,11 +6,11 @@
         <div class="wrapper--input">
             <input v-model="user_search_restaurant" type="text" placeholder="De quoi avez vous envie ?">
             <div class="search">
-                <div v-for="(resatusrant, i ) in search_restaurant" :key="i" class="contenair--restaurant--search">
+                <div v-for="(restaurant, i ) in search_restaurant" :key="i" class="contenair--restaurant--search">
                     <div class="wrapper--img">
-                        <img :src="restaurant.name" alt="">
+                        <img :src="restaurant.image" alt="">
                     </div>
-                    <h2>{{  restaurant.name  }}</h2>
+                    <p>{{  restaurant.name  }}</p>
                 </div>
             </div>
         </div>
@@ -76,11 +76,11 @@ export default {
         let search_restaurant = ref([]);
 
         watch(user_search_restaurant , new_value => {
-            let regex = RegExp(new_value);
+            let regex = RegExp(new_value.toLowerCase());
 
-            let new_search_restaurant = all_restaurant.filter(restaurant => regex.test(restaurant.name));
-
-            search_restaurant = new_search_restaurant;
+            let new_search_restaurant = all_restaurant.filter(restaurant => regex.test(restaurant.name.toLowerCase()));    
+            
+            new_value == 0 ? search_restaurant.value = [] : search_restaurant.value = new_search_restaurant;
         })
         //
 
@@ -124,13 +124,29 @@ export default {
                     position: absolute;
                     top: 100%;
                     width: 100%;
-                    height: 400px;
                     background-color: #fff;
-                    border: 1px solid #666;
 
                     .contenair--restaurant--search {
                         display: flex;
                         align-items: center;
+                        padding: 10px;
+
+                        &:hover {
+                            background: #f6f6f6;
+                        }
+
+                        .wrapper--img {
+                            height: 60px;
+                            width: 60px;
+                            margin-right: 25px;
+                            border-radius: 50%;
+                            overflow: hidden;
+
+                            img {
+                                height: 100%;
+                                width: 100%;
+                            }
+                        }
                     }
                 }
             }
